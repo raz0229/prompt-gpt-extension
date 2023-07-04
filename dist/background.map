@@ -1,0 +1,1 @@
+{"version":3,"file":"background.js","mappings":";;;;;AAAA","sources":["webpack://prompt-gpt/./src/background.js"],"sourcesContent":["console.log('Background service worker - edit me! Edited');\n"],"names":[],"sourceRoot":""}
