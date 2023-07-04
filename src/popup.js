@@ -29,5 +29,5 @@ EasySpeech.voices().forEach(function(option) {
 });
 
 document.querySelector('#speed').addEventListener('change', (event)=>{
-    console.log(event.target.value)
+  document.querySelector('#rangeText').innerHTML = event.target.value
 })

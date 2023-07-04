@@ -42,7 +42,7 @@ easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].voices().forEach(function(op
 });
 
 document.querySelector('#speed').addEventListener('change', (event)=>{
-    console.log(event.target.value)
+  document.querySelector('#rangeText').innerHTML = event.target.value
 })
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } }, 1);
