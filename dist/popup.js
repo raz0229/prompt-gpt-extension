@@ -41,8 +41,19 @@ easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].voices().forEach(function(op
   select.appendChild(optionElement);
 });
 
+// value change for speed range
 document.querySelector('#speed').addEventListener('change', (event)=>{
   document.querySelector('#rangeText').innerHTML = event.target.value
+  chrome.storage.sync.set({ "PROMPTGPT_SPEAK_SPEED": event.target.value }, function () {
+    //console.log('value changed for PROMPTGPT_SPEAK_SPEED: ', event.target.value)
+  });
+})
+
+// value change for select voices
+document.querySelector('#voices').addEventListener('change', (event)=>{
+  chrome.storage.sync.set({ "PROMPTGPT_SPEAK_VOICE": event.target.value }, function () {
+    //console.log('value changed for PROMPTGPT_SPEAK_VOICE: ', event.target.value)
+  });
 })
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } }, 1);

@@ -963,21 +963,39 @@ async function textToSpeech(text, parentButton) {
   parentButton.lastChild.classList.toggle('hidden') // hide play button
   parentButton.childNodes[parentButton.childElementCount - 2].classList.toggle('hidden') // show stop button
 
-  await easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].speak({
-    text,
-    voice: easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].voices()[3],
-    pitch: 1,
-    rate: 1,
-    volume: 1,
-    boundary: (e) => console.log('boundary reached'),
-    error: (e) => {
-      console.log('Error during speech: ', e)
-    },
-    mark: (e) => {
-      console.log('marked');
-      console.log(e);
+  let voice = 0;
+  let rate = 1.0;
+
+  chrome.storage.sync.get(["PROMPTGPT_SPEAK_SPEED"], function (items) {
+    console.log(items['PROMPTGPT_SPEAK_SPEED'])
+    if (items['PROMPTGPT_SPEAK_SPEED']) {
+      rate = items['PROMPTGPT_SPEAK_SPEED']
     }
-  });
+    chrome.storage.sync.get(["PROMPTGPT_SPEAK_VOICE"], async function (items) {
+      console.log(items['PROMPTGPT_SPEAK_VOICE'])
+      if (items['PROMPTGPT_SPEAK_VOICE']) {
+        voice = parseInt(items['PROMPTGPT_SPEAK_VOICE'])
+      }
+
+      await easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].speak({
+        text,
+        voice: easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].voices()[voice],
+        pitch: 1,
+        rate,
+        volume: 1,
+        boundary: (e) => console.log('boundary reached'),
+        error: (e) => {
+          console.log('Error during speech: ', e)
+        },
+        mark: (e) => {
+          console.log('marked');
+          console.log(e);
+        }
+      });
+    })
+  })
+
+  
 }
 
 
