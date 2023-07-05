@@ -35,21 +35,29 @@ async function textToSpeech(text, parentButton) {
         voice = parseInt(items['PROMPTGPT_SPEAK_VOICE'])
       }
 
-      await EasySpeech.speak({
-        text,
-        voice: EasySpeech.voices()[voice],
-        pitch: 1,
-        rate,
-        volume: 1,
-        boundary: (e) => console.log('boundary reached'),
-        error: (e) => {
-          console.log('Error during speech: ', e)
-        },
-        mark: (e) => {
-          console.log('marked');
-          console.log(e);
-        }
-      });
+      try {
+        await EasySpeech.speak({
+          text,
+          voice: EasySpeech.voices()[voice],
+          pitch: 1,
+          rate,
+          volume: 1,
+          boundary: (e) => console.log('boundary reached'),
+          error: (e) => {
+            console.log('Error during speech: ', e)
+          },
+          mark: (e) => {
+            console.log('marked');
+            console.log(e);
+          }
+        });
+  
+        parentButton.lastChild.classList.toggle('hidden') // show play button
+        parentButton.childNodes[parentButton.childElementCount - 2].classList.toggle('hidden') // hide stop button
+      
+      } catch (e) {
+        console.log('Speech interrupted: ', e)
+      }
     })
   })
 
@@ -88,9 +96,13 @@ if (document.querySelector('textarea')) {
 
                 // click event for stop button
                 parent.childNodes[parent.childElementCount - 2].addEventListener('click', ()=>{
-                  parent.lastChild.classList.toggle('hidden') // show play button
-                  parent.childNodes[parent.childElementCount - 2].classList.toggle('hidden') // hide stop button
-                  EasySpeech.cancel()
+                  try {
+                    parent.lastChild.classList.toggle('hidden') // show play button
+                    parent.childNodes[parent.childElementCount - 2].classList.toggle('hidden') // hide stop button
+                    EasySpeech.cancel()
+                  } catch (e) {
+                    console.log('Error: Speech Interrupted: ', e)
+                  }
                 }) 
               } 
           }

@@ -26,6 +26,7 @@ document.querySelector('.special-text').style.color = '#000'
 
 // Get reference to select element
 const select = document.getElementById("voices");
+const speedRange = document.querySelector('#speed')
 let ref = 0;
 
 // Iterate over the array and create options
@@ -42,7 +43,7 @@ easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].voices().forEach(function(op
 });
 
 // value change for speed range
-document.querySelector('#speed').addEventListener('change', (event)=>{
+speedRange.addEventListener('change', (event)=>{
   document.querySelector('#rangeText').innerHTML = event.target.value
   chrome.storage.sync.set({ "PROMPTGPT_SPEAK_SPEED": event.target.value }, function () {
     //console.log('value changed for PROMPTGPT_SPEAK_SPEED: ', event.target.value)
@@ -50,10 +51,27 @@ document.querySelector('#speed').addEventListener('change', (event)=>{
 })
 
 // value change for select voices
-document.querySelector('#voices').addEventListener('change', (event)=>{
+select.addEventListener('change', (event)=>{
   chrome.storage.sync.set({ "PROMPTGPT_SPEAK_VOICE": event.target.value }, function () {
     //console.log('value changed for PROMPTGPT_SPEAK_VOICE: ', event.target.value)
   });
+})
+
+// set default values for speedRange and voices selection
+chrome.storage.sync.get(["PROMPTGPT_SPEAK_SPEED"], function (items) {
+  if (items['PROMPTGPT_SPEAK_SPEED']) {
+    speedRange.value = items['PROMPTGPT_SPEAK_SPEED']
+  } else {
+    speedRange.value = 5; // default speed
+  }
+})
+
+chrome.storage.sync.get(["PROMPTGPT_SPEAK_VOICE"], async function (items) {
+  if (items['PROMPTGPT_SPEAK_VOICE']) {
+    select.value = items['PROMPTGPT_SPEAK_VOICE']
+  } else {
+    select.value = 4; // default voice
+  }
 })
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } }, 1);

@@ -967,31 +967,37 @@ async function textToSpeech(text, parentButton) {
   let rate = 1.0;
 
   chrome.storage.sync.get(["PROMPTGPT_SPEAK_SPEED"], function (items) {
-    console.log(items['PROMPTGPT_SPEAK_SPEED'])
     if (items['PROMPTGPT_SPEAK_SPEED']) {
       rate = items['PROMPTGPT_SPEAK_SPEED']
     }
     chrome.storage.sync.get(["PROMPTGPT_SPEAK_VOICE"], async function (items) {
-      console.log(items['PROMPTGPT_SPEAK_VOICE'])
       if (items['PROMPTGPT_SPEAK_VOICE']) {
         voice = parseInt(items['PROMPTGPT_SPEAK_VOICE'])
       }
 
-      await easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].speak({
-        text,
-        voice: easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].voices()[voice],
-        pitch: 1,
-        rate,
-        volume: 1,
-        boundary: (e) => console.log('boundary reached'),
-        error: (e) => {
-          console.log('Error during speech: ', e)
-        },
-        mark: (e) => {
-          console.log('marked');
-          console.log(e);
-        }
-      });
+      try {
+        await easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].speak({
+          text,
+          voice: easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].voices()[voice],
+          pitch: 1,
+          rate,
+          volume: 1,
+          boundary: (e) => console.log('boundary reached'),
+          error: (e) => {
+            console.log('Error during speech: ', e)
+          },
+          mark: (e) => {
+            console.log('marked');
+            console.log(e);
+          }
+        });
+  
+        parentButton.lastChild.classList.toggle('hidden') // show play button
+        parentButton.childNodes[parentButton.childElementCount - 2].classList.toggle('hidden') // hide stop button
+      
+      } catch (e) {
+        console.log('Speech interrupted: ', e)
+      }
     })
   })
 
@@ -1030,9 +1036,13 @@ if (document.querySelector('textarea')) {
 
                 // click event for stop button
                 parent.childNodes[parent.childElementCount - 2].addEventListener('click', ()=>{
-                  parent.lastChild.classList.toggle('hidden') // show play button
-                  parent.childNodes[parent.childElementCount - 2].classList.toggle('hidden') // hide stop button
-                  easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].cancel()
+                  try {
+                    parent.lastChild.classList.toggle('hidden') // show play button
+                    parent.childNodes[parent.childElementCount - 2].classList.toggle('hidden') // hide stop button
+                    easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].cancel()
+                  } catch (e) {
+                    console.log('Error: Speech Interrupted: ', e)
+                  }
                 }) 
               } 
           }
