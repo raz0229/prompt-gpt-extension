@@ -1004,10 +1004,14 @@ async function textToSpeech(text, parentButton) {
   
 }
 
+const textField = document.querySelector('textarea');
 
-if (document.querySelector('textarea')) {
-    document.querySelector('textarea').placeholder = 'I am in charge'
+if (textField) {
+    textField.placeholder = 'I am in charge (2)'
     
+    const recordButton = document.createRange().createContextualFragment('<button class="absolute p-1 rounded-full md:bottom-3 md:p-2 md:right-6 right-12 disabled:text-gray-400 enabled:bg-brand-purple text-white bottom-1.5 transition-colors disabled:opacity-40"><span class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#fff" class="h-4 w-4 m-1 md:m-0" stroke="currentColor" stroke-width="2" height="22" width="22"><path d="M480-423q-43 0-72-30.917-29-30.916-29-75.083v-251q0-41.667 29.441-70.833Q437.882-880 479.941-880t71.559 29.167Q581-821.667 581-780v251q0 44.167-29 75.083Q523-423 480-423Zm0-228Zm-30 531v-136q-106-11-178-89t-72-184h60q0 91 64.288 153t155.5 62Q571-314 635.5-376 700-438 700-529h60q0 106-72 184t-178 89v136h-60Zm30-363q18 0 29.5-13.5T521-529v-251q0-17-11.788-28.5Q497.425-820 480-820q-17.425 0-29.212 11.5Q439-797 439-780v251q0 19 11.5 32.5T480-483Z"></path></svg></span></button>');
+    textField.parentElement.appendChild(recordButton)
+
     let w;
     if (typeof(Worker) !== "undefined") {
         console.log('Worker is supported by browser')
