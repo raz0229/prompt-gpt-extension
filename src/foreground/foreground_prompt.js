@@ -1,27 +1,20 @@
-import { ChatGPTAPI } from 'chatgpt'
-import { Configuration, OpenAIApi } from "openai";
+import ai from "@nechlophomeriaa/chatgpt"
 
 const GPTISE_COMMAND = '!#gpt'
 
-async function getGPTResponse(prompt) {
-    const configuration = new Configuration({
-        apiKey: "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",
-      });
-    const openai = new OpenAIApi(configuration);
-    const completion = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt
-    });
+// async function getGPTResponse(prompt) {
+//     const configuration = new Configuration({
+//         apiKey: "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",
+//       });
+//     const openai = new OpenAIApi(configuration);
+//     const completion = await openai.createCompletion({
+//         model: "text-davinci-003",
+//         prompt
+//     });
     
-    const res = completion.data.choices[0].text;
-    return res;
-//   const api = new ChatGPTAPI({
-//     apiKey: "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"
-//   })
-
-//   const res = await api.sendMessage(prompt)
-//   return res;
-}
+//     const res = completion.data.choices[0].text;
+//     return res;
+// }
 
 
 // Create the text box element
@@ -59,20 +52,28 @@ document.querySelector('body').addEventListener('keyup', async (e)=>{
     if (elem.value) {
         if (elem.value.toString().toLowerCase().endsWith(GPTISE_COMMAND)) {
             showTextInToast('⚙️ Thinking...');
-            const prompt = elem.value.toString().trim().replace('!#gpt', '').replace('!#GPT', '');
-            const response = await getGPTResponse(prompt)
-            navigator.clipboard.writeText(response);
-            showTextInToast('📋 Response copied to clipboard');
+            try {
+                const prompt = elem.value.toString().trim().replace('!#gpt', '').replace('!#GPT', '');
+                //const response = await getGPTResponse(prompt)
+                const response = await ai(prompt)
+                navigator.clipboard.writeText(response);
+                showTextInToast('📋 Response copied to clipboard');
+            } catch (e) {
+                showTextInToast('❌ Something went wrong!')
+            }
         }
     } else {
         if (elem.textContent.toString().toLowerCase().endsWith(GPTISE_COMMAND)) {
-            showTextInToast('⚙️ Thinking...');
-            const prompt = elem.textContent.toString().trim().replace('!#gpt', '').replace('!#GPT', '');
-            console.log(prompt);
-            const response = await getGPTResponse(prompt)
-            console.log(response);
-            navigator.clipboard.writeText(response);
-            showTextInToast('📋 Response copied to clipboard');
+            try {
+                showTextInToast('⚙️ Thinking...');
+                const prompt = elem.textContent.toString().trim().replace('!#gpt', '').replace('!#GPT', '');
+                //const response = await getGPTResponse(prompt)
+                const response = await ai(prompt)
+                navigator.clipboard.writeText(response);
+                showTextInToast('📋 Response copied to clipboard');
+            } catch (e) {
+                showTextInToast('❌ Something went wrong!')
+            }
         }
     }
 })

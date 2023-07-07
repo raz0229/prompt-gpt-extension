@@ -66,8 +66,7 @@
         ]
     },
     "dependencies": {
-        "chatgpt": "^5.2.5",
-        "easy-speech": "^2.1.0",
-        "openai": "^3.3.0"
+        "@nechlophomeriaa/chatgpt": "^0.0.2",
+        "easy-speech": "^2.1.0"
     }
 }
