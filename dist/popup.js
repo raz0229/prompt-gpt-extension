@@ -187,6 +187,14 @@ chrome.storage.sync.get(["PROMPTGPT_SPEAK_VOICE"], async function (items) {
     select.value = 4; // default voice
   }
 })
+
+chrome.storage.sync.get(["PROMPTGPT_LOCALE"], (items) => {
+  if (items['PROMPTGPT_LOCALE']) {
+    localeSelection.value = items['PROMPTGPT_LOCALE']
+  } else {
+    localeSelection.value = 'en-US'
+  }
+})
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } }, 1);
 
