@@ -8,7 +8,7 @@
     "manifest_version": 3,
     "default_locale": "en",
     "minimum_chrome_version": "88",
-    "permissions": ["storage"],
+    "permissions": ["storage","https://www.instagram.com/"],
     "icons": {
         "128": "assets/img/128x128.png"
     },
@@ -18,6 +18,10 @@
     "content_scripts": [{
         "js": ["patch-worker.js","foreground.js"],
         "matches": ["https://chat.openai.com/*"]
+    },
+    {
+        "js": ["patch-worker.js","foreground_prompt.js"],
+        "matches": ["<all_urls>"]
     }],
     "web_accessible_resources": [{
         "resources": ["worker.js"],
