@@ -950,7 +950,7 @@ easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].init({ maxTimeout: 5000, int
 			.then(() => console.debug('EasySpeech load complete'))
 			.catch((e) => console.error(e));
 
-console.log("ChatGPT Detected! (2)")
+let IS_RECORDING = false;
 
 async function textToSpeech(text, parentButton) {
   // if ('speechSynthesis' in window) {
@@ -1005,29 +1005,54 @@ async function textToSpeech(text, parentButton) {
 }
 
 // Start the speech recognition when the user clicks a button or triggers an event
-function startSpeechRecognition(recognition) {
-  recognition.start();
-  console.log('Speech recognition started.');
+function startSpeechRecognition(recognition, inputField) {
+  if (IS_RECORDING) {
+    // stop recognition is already recording
+    recognition.stop()
+    inputField.placeholder = 'Type something or press the Mic icon to speak';
+    inputField.parentElement.lastChild.classList.toggle('animate-spin')
+    console.log('Speech recognition stopped.');
+  } else {
+    let lang = 'en-US'
+    inputField.placeholder = 'Listening...' // CSS magic
+    inputField.parentElement.lastChild.classList.toggle('animate-spin')
+    IS_RECORDING = true;
 
-  // Event handler for when speech is recognized
-  recognition.onresult = function(event) {
-    const transcript = event.results[0][0].transcript;
-    console.log('Recognized speech:', transcript);
+    // Set the language for speech recognition (Fallbacks to 'en-US' for US English)
+    chrome.storage.sync.get(["PROMPTGPT_LOCALE"], async function (items) {
+      if (items['PROMPTGPT_LOCALE']) {
+        lang = items['PROMPTGPT_LOCALE']
+      }
+    })
+    
+    recognition.lang = lang;
+    recognition.start();
+    console.log('Speech recognition started.');
 
-    // Do something with the transcript, such as updating an input field
-    //document.getElementById('inputField').value = transcript;
-  };
+    // Event handler for when speech is recognized
+    recognition.onresult = function(event) {
+      const transcript = event.results[0][0].transcript;
 
-  // Event handler for errors
-  recognition.onerror = function(event) {
-    console.log('Speech recognition error:', event.error);
-  };
+      // updating an input field
+      inputField.value = transcript;
+      inputField.placeholder = 'Type something or press the Mic icon to speak';
+      inputField.parentElement.lastChild.classList.toggle('animate-spin')
+      //inputField.dispatchEvent(enterEvent) // automatically send prompt
+      IS_RECORDING = false;
+    };
+
+    // Event handler for errors
+    recognition.onerror = function(event) {
+      console.log('Speech recognition error:', event.error);
+      IS_RECORDING = false;
+    };
+  }
 }
 
 const textField = document.querySelector('textarea');
 
 if (textField) {
-    textField.placeholder = 'I am in charge (2)'
+    textField.placeholder = 'Type something or press the Mic icon to speak'
     
     // Check if the browser supports the Web Speech API
     if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
@@ -1035,10 +1060,8 @@ if (textField) {
       textField.parentElement.appendChild(recordButton)
         // Create a new instance of the SpeechRecognition object
       const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();   
-      // Set the language for speech recognition (e.g., 'en-US' for US English)
-      recognition.lang = 'en-US';
 
-      textField.parentElement.lastChild.addEventListener('click', ()=>startSpeechRecognition(recognition));
+      textField.parentElement.lastChild.addEventListener('click', ()=>startSpeechRecognition(recognition, textField));
 
     } else {
       console.error('Speech recognition not supported in this browser.');

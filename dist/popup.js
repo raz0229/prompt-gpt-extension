@@ -2,6 +2,99 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/data/locales.js":
+/*!*****************************!*\
+  !*** ./src/data/locales.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   locales: () => (/* binding */ locales)
+/* harmony export */ });
+const locales = [
+    { name: 'Afrikaans', code: 'af' },
+    { name: 'Basque', code: 'eu' },
+    { name: 'Bulgarian', code: 'bg' },
+    { name: 'Catalan', code: 'ca' },
+    { name: 'Arabic (Egypt)', code: 'ar-EG' },
+    { name: 'Arabic (Jordan)', code: 'ar-JO' },
+    { name: 'Arabic (Kuwait)', code: 'ar-KW' },
+    { name: 'Arabic (Lebanon)', code: 'ar-LB' },
+    { name: 'Arabic (Qatar)', code: 'ar-QA' },
+    { name: 'Arabic (UAE)', code: 'ar-AE' },
+    { name: 'Arabic (Morocco)', code: 'ar-MA' },
+    { name: 'Arabic (Iraq)', code: 'ar-IQ' },
+    { name: 'Arabic (Algeria)', code: 'ar-DZ' },
+    { name: 'Arabic (Bahrain)', code: 'ar-BH' },
+    { name: 'Arabic (Lybia)', code: 'ar-LY' },
+    { name: 'Arabic (Oman)', code: 'ar-OM' },
+    { name: 'Arabic (Saudi Arabia)', code: 'ar-SA' },
+    { name: 'Arabic (Tunisia)', code: 'ar-TN' },
+    { name: 'Arabic (Yemen)', code: 'ar-YE' },
+    { name: 'Czech', code: 'cs' },
+    { name: 'Dutch', code: 'nl-NL' },
+    { name: 'English (Australia)', code: 'en-AU' },
+    { name: 'English (Canada)', code: 'en-CA' },
+    { name: 'English (India)', code: 'en-IN' },
+    { name: 'English (New Zealand)', code: 'en-NZ' },
+    { name: 'English (South Africa)', code: 'en-ZA' },
+    { name: 'English (UK)', code: 'en-GB' },
+    { name: 'English (US)', code: 'en-US' },
+    { name: 'Finnish', code: 'fi' },
+    { name: 'French', code: 'fr-FR' },
+    { name: 'Galician', code: 'gl' },
+    { name: 'German', code: 'de-DE' },
+    { name: 'Hebrew', code: 'he' },
+    { name: 'Hungarian', code: 'hu' },
+    { name: 'Icelandic', code: 'is' },
+    { name: 'Italian', code: 'it-IT' },
+    { name: 'Indonesian', code: 'id' },
+    { name: 'Japanese', code: 'ja' },
+    { name: 'Korean', code: 'ko' },
+    { name: 'Latin', code: 'la' },
+    { name: 'Mandarin Chinese', code: 'zh-CN' },
+    { name: 'Traditional Taiwan', code: 'zh-TW' },
+    { name: 'Simplified China', code: 'zh-CN' },
+    { name: 'Simplified Hong Kong', code: 'zh-HK' },
+    { name: 'Yue Chinese (Traditional Hong Kong)', code: 'zh-yue' },
+    { name: 'Malaysian', code: 'ms-MY' },
+    { name: 'Norwegian', code: 'no-NO' },
+    { name: 'Polish', code: 'pl' },
+    { name: 'Portuguese', code: 'pt-PT' },
+    { name: 'Portuguese (brasil)', code: 'pt-BR' },
+    { name: 'Romanian', code: 'ro-RO' },
+    { name: 'Russian', code: 'ru' },
+    { name: 'Serbian', code: 'sr-SP' },
+    { name: 'Slovak', code: 'sk' },
+    { name: 'Spanish (Argentina)', code: 'es-AR' },
+    { name: 'Spanish (Bolivia)', code: 'es-BO' },
+    { name: 'Spanish (Chile)', code: 'es-CL' },
+    { name: 'Spanish (Colombia)', code: 'es-CO' },
+    { name: 'Spanish (Costa Rica)', code: 'es-CR' },
+    { name: 'Spanish (Dominican Republic)', code: 'es-DO' },
+    { name: 'Spanish (Ecuador)', code: 'es-EC' },
+    { name: 'Spanish (El Salvador)', code: 'es-SV' },
+    { name: 'Spanish (Guatemala)', code: 'es-GT' },
+    { name: 'Spanish (Honduras)', code: 'es-HN' },
+    { name: 'Spanish (Mexico)', code: 'es-MX' },
+    { name: 'Spanish (Nicaragua)', code: 'es-NI' },
+    { name: 'Spanish (Panama)', code: 'es-PA' },
+    { name: 'Spanish (Paraguay)', code: 'es-PY' },
+    { name: 'Spanish (Peru)', code: 'es-PE' },
+    { name: 'Spanish (Puerto Rico)', code: 'es-PR' },
+    { name: 'Spanish (Spain)', code: 'es-ES' },
+    { name: 'Spanish (US)', code: 'es-US' },
+    { name: 'Spanish (Uruguay)', code: 'es-UY' },
+    { name: 'Spanish (Venezuela)', code: 'es-VE' },
+    { name: 'Swedish', code: 'sv-SE' },
+    { name: 'Turkish', code: 'tr' },
+    { name: 'Zulu', code: 'zu' }
+  ];
+  
+
+/***/ }),
+
 /***/ "./src/popup.js":
 /*!**********************!*\
   !*** ./src/popup.js ***!
@@ -11,6 +104,9 @@
 __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var easy_speech__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! easy-speech */ "./node_modules/easy-speech/dist/EasySpeech.js");
+/* harmony import */ var _data_locales__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./data/locales */ "./src/data/locales.js");
+
+
 
 easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].detect()
 await easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].init({ maxTimeout: 5000, interval: 250 })
@@ -29,7 +125,7 @@ const select = document.getElementById("voices");
 const speedRange = document.querySelector('#speed')
 let ref = 0;
 
-// Iterate over the array and create options
+// Iterate over the voices array and create options
 easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].voices().forEach(function(option) {
   // Create option element
   let optionElement = document.createElement("option");
@@ -41,6 +137,17 @@ easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].voices().forEach(function(op
   // Append option to the select element
   select.appendChild(optionElement);
 });
+
+// Iterate over the locales array and create options
+const localeSelection = document.querySelector('#locales');
+_data_locales__WEBPACK_IMPORTED_MODULE_1__.locales.forEach(option => {
+  let elem = document.createElement("option")
+
+  elem.value = option.code;
+  elem.text = `${option.name} - ${option.code}`
+
+  localeSelection.appendChild(elem)
+})
 
 // value change for speed range
 speedRange.addEventListener('change', (event)=>{
@@ -55,6 +162,13 @@ select.addEventListener('change', (event)=>{
   chrome.storage.sync.set({ "PROMPTGPT_SPEAK_VOICE": event.target.value }, function () {
     //console.log('value changed for PROMPTGPT_SPEAK_VOICE: ', event.target.value)
   });
+})
+
+// value change for select locales
+localeSelection.addEventListener('change', (event)=>{
+  chrome.storage.sync.set({ "PROMPTGPT_LOCALE": event.target.value }, () => {
+    console.log('value changed for PROMPTGPT_LOCALE: ', event.target.value)
+  })
 })
 
 // set default values for speedRange and voices selection
