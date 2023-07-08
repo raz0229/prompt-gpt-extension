@@ -50,29 +50,36 @@ const showTextInToast = (text) => {
 document.querySelector('body').addEventListener('keyup', async (e)=>{
     const elem = e.target;
     if (elem.value) {
-        if (elem.value.toString().toLowerCase().endsWith(GPTISE_COMMAND)) {
-            showTextInToast('⚙️ Thinking...');
-            try {
-                const prompt = elem.value.toString().trim().replace('!#gpt', '').replace('!#GPT', '');
-                //const response = await getGPTResponse(prompt)
-                const response = await ai(prompt)
-                navigator.clipboard.writeText(response);
-                showTextInToast('📋 Response copied to clipboard');
-            } catch (e) {
-                showTextInToast('❌ Something went wrong!')
+        // ctrl key or any combination of ctrl key is rejected
+        if (e.keyCode !== 17 && !e.ctrlKey) {
+            if (elem.value.toString().toLowerCase().endsWith(GPTISE_COMMAND)) {
+                showTextInToast('⚙️ Thinking...');
+                try {
+                    const prompt = elem.value.toString().trim().replace('!#gpt', '').replace('!#GPT', '');
+                    //const response = await getGPTResponse(prompt)
+                    const response = await ai(prompt)
+                    navigator.clipboard.writeText(response);
+                    showTextInToast('📋 Response copied to clipboard');
+                } catch (e) {
+                    showTextInToast('❌ Something went wrong!')
+                }
             }
         }
+
     } else {
-        if (elem.textContent.toString().toLowerCase().endsWith(GPTISE_COMMAND)) {
-            try {
-                showTextInToast('⚙️ Thinking...');
-                const prompt = elem.textContent.toString().trim().replace('!#gpt', '').replace('!#GPT', '');
-                //const response = await getGPTResponse(prompt)
-                const response = await ai(prompt)
-                navigator.clipboard.writeText(response);
-                showTextInToast('📋 Response copied to clipboard');
-            } catch (e) {
-                showTextInToast('❌ Something went wrong!')
+        // ctrl key or any combination of ctrl key is rejected
+        if (e.keyCode !== 17 && !e.ctrlKey) {
+            if (elem.textContent.toString().toLowerCase().endsWith(GPTISE_COMMAND)) {
+                try {
+                    showTextInToast('⚙️ Thinking...');
+                    const prompt = elem.textContent.toString().trim().replace('!#gpt', '').replace('!#GPT', '');
+                    //const response = await getGPTResponse(prompt)
+                    const response = await ai(prompt)
+                    navigator.clipboard.writeText(response);
+                    showTextInToast('📋 Response copied to clipboard');
+                } catch (e) {
+                    showTextInToast('❌ Something went wrong!')
+                }
             }
         }
     }

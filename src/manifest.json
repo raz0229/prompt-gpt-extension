@@ -23,7 +23,7 @@
         "matches": ["https://chat.openai.com/*"]
     },
     {
-        "js": ["patch-worker.js","foreground_prompt.js"],
+        "js": ["foreground_prompt.js"],
         "matches": ["<all_urls>"]
     }],
     "web_accessible_resources": [{
