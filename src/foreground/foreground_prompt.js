@@ -53,16 +53,21 @@ document.querySelector('body').addEventListener('keyup', async (e)=>{
         // ctrl key or any combination of ctrl key is rejected
         if (e.keyCode !== 17 && !e.ctrlKey) {
             if (elem.value.toString().toLowerCase().endsWith(GPTISE_COMMAND)) {
-                showTextInToast('⚙️ Thinking...');
-                try {
-                    const prompt = elem.value.toString().trim().replace('!#gpt', '').replace('!#GPT', '');
-                    //const response = await getGPTResponse(prompt)
-                    const response = await ai(prompt)
-                    navigator.clipboard.writeText(response);
-                    showTextInToast('📋 Response copied to clipboard');
-                } catch (e) {
-                    showTextInToast('❌ Something went wrong!')
-                }
+
+                chrome.storage.sync.get(["PROMPTGPT_CHECKED"], async function (items) {
+                    if (items['PROMPTGPT_CHECKED']) {
+                        showTextInToast('⚙️ Thinking...');
+                        try {
+                            const prompt = elem.value.toString().trim().replace('!#gpt', '').replace('!#GPT', '');
+                            //const response = await getGPTResponse(prompt)
+                            const response = await ai(prompt)
+                            navigator.clipboard.writeText(response);
+                            showTextInToast('📋 Response copied to clipboard');
+                        } catch (e) {
+                            showTextInToast('❌ Something went wrong!')
+                        }
+                    }
+                })
             }
         }
 
@@ -70,16 +75,20 @@ document.querySelector('body').addEventListener('keyup', async (e)=>{
         // ctrl key or any combination of ctrl key is rejected
         if (e.keyCode !== 17 && !e.ctrlKey) {
             if (elem.textContent.toString().toLowerCase().endsWith(GPTISE_COMMAND)) {
-                try {
-                    showTextInToast('⚙️ Thinking...');
-                    const prompt = elem.textContent.toString().trim().replace('!#gpt', '').replace('!#GPT', '');
-                    //const response = await getGPTResponse(prompt)
-                    const response = await ai(prompt)
-                    navigator.clipboard.writeText(response);
-                    showTextInToast('📋 Response copied to clipboard');
-                } catch (e) {
-                    showTextInToast('❌ Something went wrong!')
-                }
+                chrome.storage.sync.get(["PROMPTGPT_CHECKED"], async function (items) {
+                    if (items['PROMPTGPT_CHECKED']) {
+                        try {
+                            showTextInToast('⚙️ Thinking...');
+                            const prompt = elem.textContent.toString().trim().replace('!#gpt', '').replace('!#GPT', '');
+                            //const response = await getGPTResponse(prompt)
+                            const response = await ai(prompt)
+                            navigator.clipboard.writeText(response);
+                            showTextInToast('📋 Response copied to clipboard');
+                        } catch (e) {
+                            showTextInToast('❌ Something went wrong!')
+                        }
+                    }
+                })
             }
         }
     }

@@ -13,6 +13,7 @@ await EasySpeech.init({ maxTimeout: 5000, interval: 250 })
 // Get reference to select element
 const select = document.getElementById("voices");
 const speedRange = document.querySelector('#speed')
+const toggleSwitch = document.querySelector('#toggleSwitch')
 let ref = 0;
 
 // Iterate over the voices array and create options
@@ -57,7 +58,14 @@ select.addEventListener('change', (event)=>{
 // value change for select locales
 localeSelection.addEventListener('change', (event)=>{
   chrome.storage.sync.set({ "PROMPTGPT_LOCALE": event.target.value }, () => {
-    console.log('value changed for PROMPTGPT_LOCALE: ', event.target.value)
+    //('value changed for PROMPTGPT_LOCALE: ', event.target.value)
+  })
+})
+
+// value change for toggle switch
+toggleSwitch.addEventListener('change', (event)=>{
+  chrome.storage.sync.set({ "PROMPTGPT_CHECKED": event.target.checked }, () => {
+    //console.log('value changed for PROMPTGPT_CHECKED: ', event.target.checked)
   })
 })
 
@@ -83,6 +91,14 @@ chrome.storage.sync.get(["PROMPTGPT_LOCALE"], (items) => {
     localeSelection.value = items['PROMPTGPT_LOCALE']
   } else {
     localeSelection.value = 'en-US'
+  }
+})
+
+chrome.storage.sync.get(["PROMPTGPT_CHECKED"], async function (items) {
+  if (items['PROMPTGPT_CHECKED']) {
+    toggleSwitch.checked = true;
+  } else {
+    toggleSwitch.checked = false;
   }
 })
 

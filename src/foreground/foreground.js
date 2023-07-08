@@ -13,12 +13,6 @@ EasySpeech.init({ maxTimeout: 5000, interval: 250 })
 let IS_RECORDING = false;
 
 async function textToSpeech(text, parentButton) {
-  // if ('speechSynthesis' in window) {
-  //   let utterance = new SpeechSynthesisUtterance(text);
-  //   window.speechSynthesis.speak(utterance);
-  // } else {
-  //   console.log('Speech synthesis is not supported in this browser.');
-  // }
 
   parentButton.lastChild.classList.toggle('hidden') // hide play button
   parentButton.childNodes[parentButton.childElementCount - 2].classList.toggle('hidden') // show stop button
@@ -71,7 +65,7 @@ function startSpeechRecognition(recognition, inputField) {
     recognition.stop()
     inputField.placeholder = 'Type something or press the Mic icon to speak';
     inputField.parentElement.lastChild.classList.toggle('animate-spin')
-    console.log('Speech recognition stopped.');
+    //console.log('Speech recognition stopped.');
     IS_RECORDING = false;
   } else {
     let lang = 'en-US'
@@ -86,7 +80,7 @@ function startSpeechRecognition(recognition, inputField) {
       }
       recognition.lang = lang;
       recognition.start();
-      console.log('Speech recognition started.', recognition.lang);
+      //('Speech recognition started.', recognition.lang);
 
       // Event handler for when speech is recognized
       recognition.onresult = function (event) {
@@ -135,7 +129,7 @@ if (textField) {
     console.log('Worker is supported by browser')
     if (typeof (w) == "undefined") {
       w = new Worker(chrome.runtime.getURL("worker.js"));
-      console.log('Worker found, ', w)
+      //console.log('Worker found, ', w)
     }
     w.onmessage = function (event) {
       let copyButtonList = document.querySelectorAll('path[d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"]')

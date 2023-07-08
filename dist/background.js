@@ -3,7 +3,7 @@ var __webpack_exports__ = {};
 /*!***************************!*\
   !*** ./src/background.js ***!
   \***************************/
-console.log('Background service worker - edit me! Edited');
+console.log('Nothing of interest in here!');
 
 // chrome.action.onClicked.addListener((tab) => {
 //     console.log('extension icon clicked')
