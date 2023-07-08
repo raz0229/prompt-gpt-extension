@@ -113,9 +113,6 @@ await easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].init({ maxTimeout: 500
 			.then(() => console.debug('EasySpeech load complete'))
 			.catch((e) => console.error(e));
 
-console.log('hello')
-document.querySelector('.special-text').style.color = '#000'
-
 // for (let voice of EasySpeech.voices()) {
 //     console.log(voice.name, voice.lang)
 // }
@@ -132,7 +129,7 @@ easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].voices().forEach(function(op
 
   // Set value and text of the option
   optionElement.value = ref++;
-  optionElement.text = `${option.name} - ${option.lang}`;
+  optionElement.text = `${option.name.substring(0,20)} - ${option.lang}`;
 
   // Append option to the select element
   select.appendChild(optionElement);
@@ -144,14 +141,14 @@ _data_locales__WEBPACK_IMPORTED_MODULE_1__.locales.forEach(option => {
   let elem = document.createElement("option")
 
   elem.value = option.code;
-  elem.text = `${option.name} - ${option.code}`
+  elem.text = `${option.name.substring(0,20)} - ${option.code}`
 
   localeSelection.appendChild(elem)
 })
 
 // value change for speed range
 speedRange.addEventListener('change', (event)=>{
-  document.querySelector('#rangeText').innerHTML = event.target.value
+  //document.querySelector('#rangeText').innerHTML = event.target.value
   chrome.storage.sync.set({ "PROMPTGPT_SPEAK_SPEED": event.target.value }, function () {
     //console.log('value changed for PROMPTGPT_SPEAK_SPEED: ', event.target.value)
   });
@@ -195,6 +192,10 @@ chrome.storage.sync.get(["PROMPTGPT_LOCALE"], (items) => {
     localeSelection.value = 'en-US'
   }
 })
+
+// event listeners for social icons
+document.querySelector('#github').addEventListener('click', ()=> window.open('https://github.com/raz0229/prompt-gpt-extension', '_blank').focus())
+document.querySelector('#instagram').addEventListener('click', ()=> window.open('https://instagram.com/raz0229', '_blank').focus())
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } }, 1);
 

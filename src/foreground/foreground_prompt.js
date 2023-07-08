@@ -4,7 +4,7 @@ const GPTISE_COMMAND = '!#gpt'
 
 // async function getGPTResponse(prompt) {
 //     const configuration = new Configuration({
-//         apiKey: "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",
+//         apiKey: "YOUR_API_KEY",
 //       });
 //     const openai = new OpenAIApi(configuration);
 //     const completion = await openai.createCompletion({
