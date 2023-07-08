@@ -52,7 +52,7 @@ document.querySelector('body').addEventListener('keyup', async (e)=>{
     if (elem.value) {
         // ctrl key or any combination of ctrl key is rejected
         if (e.keyCode !== 17 && !e.ctrlKey) {
-            if (elem.value.toString().toLowerCase().endsWith(GPTISE_COMMAND)) {
+            if (elem.value.toString().toLowerCase().endsWith(GPTISE_COMMAND) && chrome.storage) {
 
                 chrome.storage.sync.get(["PROMPTGPT_CHECKED"], async function (items) {
                     if (items['PROMPTGPT_CHECKED']) {

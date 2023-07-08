@@ -1,9 +1,9 @@
 {
     "appName": {
-        "message": "prompt-gpt"
+        "message": "PromptGPT - Speak/Listen/GPTify"
     },
     "appShortName": {
-        "message": "prompt-gpt"
+        "message": "PromptGPT"
     },
     "appDescription": {
         "message": "Turn any text field into a ChatGPT prompt and get the response right there, + Speaking and Listening abilities with ChatGPT web"

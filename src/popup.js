@@ -1,14 +1,11 @@
 import EasySpeech from 'easy-speech'
 import { locales } from './data/locales';
 
-EasySpeech.detect()
-await EasySpeech.init({ maxTimeout: 5000, interval: 250 })
-			.then(() => console.debug('EasySpeech load complete'))
-			.catch((e) => console.error(e));
-
-// for (let voice of EasySpeech.voices()) {
-//     console.log(voice.name, voice.lang)
-// }
+// If offline
+if (window.navigator.onLine === false) {
+  document.querySelector('.lower-container').style.display = 'none';
+  document.querySelector('.error-container').style.display = 'block';
+}
 
 // Get reference to select element
 const select = document.getElementById("voices");
@@ -16,18 +13,27 @@ const speedRange = document.querySelector('#speed')
 const toggleSwitch = document.querySelector('#toggleSwitch')
 let ref = 0;
 
+try {
+  EasySpeech.detect()
+  await EasySpeech.init({ maxTimeout: 5000, interval: 250 })
+			.then(() => console.debug('EasySpeech load complete'))
+			.catch((e) => console.log(e));
+
 // Iterate over the voices array and create options
-EasySpeech.voices().forEach(function(option) {
-  // Create option element
-  let optionElement = document.createElement("option");
-
-  // Set value and text of the option
-  optionElement.value = ref++;
-  optionElement.text = `${option.name.substring(0,20)} - ${option.lang}`;
-
-  // Append option to the select element
-  select.appendChild(optionElement);
-});
+  EasySpeech.voices().forEach(function(option) {
+    // Create option element
+    let optionElement = document.createElement("option");
+  
+    // Set value and text of the option
+    optionElement.value = ref++;
+    optionElement.text = `${option.name.substring(0,20)} - ${option.lang}`;
+  
+    // Append option to the select element
+    select.appendChild(optionElement);
+  });
+} catch (e) {
+  console.log('Internet connection error')
+}
 
 // Iterate over the locales array and create options
 const localeSelection = document.querySelector('#locales');

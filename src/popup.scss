@@ -78,6 +78,29 @@ select, input[type="range"] {
     flex: 1;
 }
 
+.error-container {
+    max-width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .error-container h1 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .error-container img {
+    width: 60px;
+    margin-bottom: 10px;
+  }
+  
+  .error-container p {
+    font-size: 16px;
+    color: #666;
+  }  
+
 .lower-container {
     width: 100%;
     background-color: #fff;

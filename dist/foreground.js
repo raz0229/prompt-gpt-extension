@@ -945,10 +945,14 @@ __webpack_require__.r(__webpack_exports__);
 // and injected into the same or different pages.
 
 
-easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].detect()
-easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].init({ maxTimeout: 5000, interval: 250 })
-  .then(() => console.debug('EasySpeech load complete'))
-  .catch((e) => console.error(e));
+try {
+  easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].detect()
+  easy_speech__WEBPACK_IMPORTED_MODULE_0__["default"].init({ maxTimeout: 5000, interval: 250 })
+    .then(() => console.debug('EasySpeech load complete'))
+    .catch((e) => console.error(e));
+} catch (e) {
+  console.log('Please check your connection')
+}
 
 let IS_RECORDING = false;
 

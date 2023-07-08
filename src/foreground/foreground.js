@@ -5,10 +5,14 @@
 // and injected into the same or different pages.
 import EasySpeech from 'easy-speech'
 
-EasySpeech.detect()
-EasySpeech.init({ maxTimeout: 5000, interval: 250 })
-  .then(() => console.debug('EasySpeech load complete'))
-  .catch((e) => console.error(e));
+try {
+  EasySpeech.detect()
+  EasySpeech.init({ maxTimeout: 5000, interval: 250 })
+    .then(() => console.debug('EasySpeech load complete'))
+    .catch((e) => console.error(e));
+} catch (e) {
+  console.log('Please check your connection')
+}
 
 let IS_RECORDING = false;
 
